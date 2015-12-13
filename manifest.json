@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "didlies",
+  "sockets": {
+    "udp": {
+      "send": ["*"],
+      "bind": ["*"]
+    }
+  },
+  "version": "1",
+  "permissions": [ "system.network" ],
+  "minimum_chrome_version": "46",
+  "app": {
+    "background": {
+        "scripts": ["build/launch.js"],
+        "transient": true
+    }
+  }
+}

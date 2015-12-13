@@ -1,0 +1,30 @@
+{
+  "name": "didl_prototypes",
+  "authors": [
+    "Ilya Rostovtsev <ilyaforpresident@gmail.com>"
+  ],
+  "description": "GUI Sketches for Musical Instruments; en route to identify the \"dl\" in didl",
+  "main": "index.html",
+  "moduleType": [],
+  "keywords": [
+    "didl",
+    "music",
+    "instrument"
+  ],
+  "license": "BSD-2",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bacon": "~0.7.82",
+    "paper": "~0.9.25",
+    "ramda": "~0.18.0",
+    "osc.js": "~2.0.1"
+  }
+}
