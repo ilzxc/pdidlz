@@ -7,14 +7,17 @@ A research project in active pursuit.
 
 ### installing dependencies
 
-At the moment, needs [CoffeeScript](http://coffeescript.org) at the global level for build scripts to work -- `sudo npm install -g coffee-script` will do the trick. Current dependencies are <!-- [Ramda](http://ramdajs.com/0.18.0/index.html), --> [Bacon](https://baconjs.github.io), [Paper](http://paperjs.org), and [osc.js](https://github.com/colinbdclark/osc.js). The best way to install them is by running `bower install` in the project directory. (`npm install -g bower` if you don't have bower)
+At the moment, needs [CoffeeScript](http://coffeescript.org) at the global level for build scripts to work -- `sudo npm install -g coffee-script` will do the trick. Current dependencies are [Bacon](https://baconjs.github.io), [Paper](http://paperjs.org), and [osc.js](https://github.com/colinbdclark/osc.js). Install them by running `bower install` in the project directory. (`npm install -g bower` if you don't have bower)
+
+<!-- [Ramda](http://ramdajs.com/0.18.0/index.html) -->
 
 ### building & running
 
 #### build:
 
 ```
-git clone <this repo> && cd pdidl
+git clone https://github.com/ilzxc/pdidlz.git && cd pdidlz
+sudo npm install -g coffee-script
 sudo npm install -g bower && bower install
 ./make.sh
 ```
