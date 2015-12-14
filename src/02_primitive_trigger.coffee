@@ -1,19 +1,6 @@
-### create an object to store feedback data ###
+### create an object to store feedback data & plug a stream into it ###
 feedback = { intensity: 0 }
-
-### register feedback stream (will not be necessary in the future) ###
-feedbackBus.onValue (result) ->
-    feedback.intensity = getVal result.packets, '/intensity', feedback.intensity
-
-### return an osc packet with a given command (will be better handled in the future) ###
-makeBundle = (command) ->
-    osc.writePacket {
-        timeTag: osc.timeTag(0)
-        packets: [
-            address: '/command'
-            args: command
-        ]
-    }
+feedbackBus.onValue (result) -> feedback = osc2json result
 
 ### instantiate paper ###
 paper.install window
@@ -37,7 +24,6 @@ window.onload = () ->
 
     ### controller callbacks ###
     button.onMouseDown = (event) ->
-        forwardBus.push makeBundle("bang")
-     
+        forwardBus.push json2osc { command: 'bang' }     
     button.onMouseUp = (event) ->
-        forwardBus.push makeBundle("next")
+        forwardBus.push json2osc { command: 'next' }

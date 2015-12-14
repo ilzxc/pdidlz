@@ -1,9 +1,10 @@
 ### create an object to store feedback data ###
-feedback = { rotation: 10 }
+feedback = { rotation: 0 }
 
 ### register feedback stream ###
-feedbackBus.onValue (result) ->
-    feedback.rotation = getVal result.packets, '/rotation', feedback.rotation
+feedbackBus.onValue (result) -> 
+    feedback = osc2json result
+    console.log feedback
 
 ### paper scene: ###
 paper.install window

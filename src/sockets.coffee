@@ -25,22 +25,31 @@ forwardBus.onValue (bundle) ->
             if sendInfo.resultCode < 0 then console.log "error sending stuff"
         return
 
-### value-from-bundle extractor (for now to test things with) ###
-getVal = (packets, address, current) -> 
-    for p in packets
-        if p.address == address
-            return p.args[0]
-    current
-
 ### straight-up json 2 osc: ###
-json2osc = (json, timeTag = 0) ->
-    # iterate over json
-    # add slashes to all keys, store as addresses
-    # recurse on objects
-    # hand the resulting JSON off to osc bundle maker
+json2osc = (json, timeTag = osc.timeTag(0)) ->
+    result = {
+        timeTag : timeTag
+        packets: []
+    }
+    for key, value of json
+        result.packets.push setOscData key, value, timeTag
+    return osc.writePacket result
+
+### for recursion ###
+getOscData = (args) ->
+    if typeof args != 'object' or Array.isArray(args) is true then return args
+    else osc2json args
+
+setOscData = (key, value, tt) ->
+    a = '/' + key
+    if typeof args != 'object' or Array.isArray(value) is true
+        { address: a, args: value }
+    else { address: a, args: json2osc key, value, tt }
 
 ### straight-up osc 2 json: ###
-osc2json = (array) ->
+osc2json = (jsosc) ->
     result = {}
-    for p in packets
-        result[getAddr(p)] = getData(p)
+    for p in jsosc.packets
+        a = p.address.substring 1, p.address.length
+        result[a] = getOscData(p.args)
+    result
