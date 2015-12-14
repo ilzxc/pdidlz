@@ -63,5 +63,5 @@ sudo npm install -g bower && bower install
 
 ### todos
 
-* json2osc / osc2json using odot dictionary semantics
 * bacon-wrap paper callbacks
+* redo `01_feedback_basic` and `02_primitive_trigger` to be graphically controlled
