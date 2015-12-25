@@ -1,27 +1,41 @@
 ### Bacon Busses for sending & receiving data from UDP ###
 feedbackBus = new Bacon.Bus()
 forwardBus = new Bacon.Bus() 
-sid = 0 # socket id, used internally
+touchBus = new Bacon.Bus()
+ffsocket_id = 0 # socket id for feedback & forwarding
+tsocket_id = 0 # touch socket id
 
-### constructor ###
+### create feedback & forward socket (didl = 49412) ###
 chrome.sockets.udp.create {}, (info) ->
-    sid = info.socketId
-    chrome.sockets.udp.bind sid, '127.0.0.1', 56766, (result) ->
-        if result < 0 then console.log "error binding socket"
+    console.log "creating ffsocket"
+    ffsocket_id = info.socketId
+    chrome.sockets.udp.bind ffsocket_id, '127.0.0.1', 49412, (result) ->
+        if result < 0 then console.log "error binding ffsocket"
 
-### stream of feedback bundles ###
+### create touch socket (ditd = 49204) ###
+chrome.sockets.udp.create {}, (info) ->
+    console.log "creating tsocket"
+    tsocket_id = info.socketId
+    chrome.sockets.udp.bind tsocket_id, '127.0.0.1', 49204, (result) ->
+        if result < 0 then console.log "error binding tsocket"
+
+### stream of feedback & touch bundles ###
 chrome.sockets.udp.onReceive.addListener (info) ->
+    console.log info
     try 
         result = osc.readPacket info.data, {}
     catch error
         console.log "An error occurred: ", error.message
         return
-    feedbackBus.push result
+    if info.socketId is tsocket_id
+        touchBus.push result
+    else if info.socketId is ffsocket_id
+        feedbackBus.push result
     return
 
 ### bundles sent to forwardBus are currently sent out of udp asap (need my json2osc first) ###
 forwardBus.onValue (bundle) ->
-    chrome.sockets.udp.send sid, bundle.buffer, '127.0.0.1', 56765, (sendInfo) ->
+    chrome.sockets.udp.send ffsocket_id, bundle.buffer, '127.0.0.1', 56765, (sendInfo) ->
             if sendInfo.resultCode < 0 then console.log "error sending stuff"
         return
 
