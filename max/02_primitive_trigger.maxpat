@@ -3,9 +3,9 @@
 		"fileversion" : 1,
 		"appversion" : 		{
 			"major" : 7,
-			"minor" : 0,
-			"revision" : 6,
-			"architecture" : "x86",
+			"minor" : 1,
+			"revision" : 0,
+			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
@@ -174,7 +174,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 76.5, 343.0, 144.0, 22.0 ],
 					"style" : "",
-					"text" : "udpsend localhost 56766"
+					"text" : "udpsend localhost 49412"
 				}
 
 			}
@@ -279,7 +279,7 @@
 				"type" : "iLaX"
 			}
  ],
-		"embedsnapshot" : 0
+		"autosave" : 0
 	}
 
 }

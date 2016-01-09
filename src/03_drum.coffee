@@ -13,7 +13,7 @@ drum = (index, total) ->
     result = new Path.Circle new Point(width / 2, height / 2), radius
     result.style = {
         fillColor: 'white'
-        strokeColor: 'green'
+        strokeColor: 'black'
         strokeWidth: 10 * (total - index) / total
     }
     result.radius = radius

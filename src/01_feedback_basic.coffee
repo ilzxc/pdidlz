@@ -1,9 +1,11 @@
+feedbackBus = require('./sockets.js').feedbackBus
+
 ### create an object to store feedback data ###
 feedback = { rotation: 0 }
 
 ### register feedback stream ###
 feedbackBus.onValue (result) -> 
-    feedback = osc2json result
+    feedback = result
     console.log feedback
 
 ### paper scene: ###

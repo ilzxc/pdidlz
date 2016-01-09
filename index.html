@@ -1,31 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Global Libs: -->
     <script type="text/javascript" src="bower_components/paper/dist/paper-core.min.js"></script>
     <script type="text/javascript" src="bower_components/osc.js/dist/osc-chromeapp.js"></script>
     <script type="text/javascript" src="bower_components/bacon/dist/Bacon.js"></script>
-    <script type="text/javascript" src="build/sockets.js"></script>
-    <!-- <script type="text/javascript" src="build/00_hello.js"></script> -->
-    <!-- <script type="text/javascript" src="build/01_feedback_basic.js"></script> -->
-    <!-- <script type="text/javascript" src="build/02_primitive_trigger.js"></script> -->
-    <!-- <script type="text/javascript" src="build/03_drum.js"></script> -->
-    <script type="text/javascript" src="build/T00_touch_input.js"></script>
+    <script type="text/javascript" src="bower_components/ramda/dist/ramda.min.js"></script>
+
+    <!-- Browserified didl demos: -->
+    <script type="text/javascript" src="build/main.js"></script>
 
     <style>
         body {
             background-color: #ddd;
         }
-
         #didlCanvas {
             background-color: #fff;
-            border-color: #000;
-            border-style: dotted;
-            border-width: 1px;
-            padding-left: 0;
-            padding-right: 0;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 30px;
+            border: 1px dotted black;
+            margin: 30px auto auto auto;
             display: block;
             width: 568px;
             height: 320px;
@@ -34,6 +26,5 @@
 </head>
 <body>
     <canvas id="didlCanvas"></canvas>
-    <!-- <p><a target="_blank" id="minus">BACK</a> | <a target="_blank" id="plus">FORWARD</a></p> -->
 </body>
 </html>

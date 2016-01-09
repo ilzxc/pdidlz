@@ -1,6 +1,10 @@
+s = require('./sockets.js')
+feedbackBus = s.feedbackBus
+forwardBus = s.forwardBus
+
 ### create an object to store feedback data & plug a stream into it ###
 feedback = { intensity: 0 }
-feedbackBus.onValue (result) -> feedback = osc2json result
+feedbackBus.onValue (result) -> feedback = result
 
 ### instantiate paper ###
 paper.install window
@@ -24,6 +28,6 @@ window.onload = () ->
 
     ### controller callbacks ###
     button.onMouseDown = (event) ->
-        forwardBus.push json2osc { command: 'bang' }     
+        forwardBus.push { command: 'bang' }     
     button.onMouseUp = (event) ->
-        forwardBus.push json2osc { command: 'next' }
+        forwardBus.push { command: 'next' }

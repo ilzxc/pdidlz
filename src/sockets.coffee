@@ -2,6 +2,7 @@
 feedbackBus = new Bacon.Bus()
 forwardBus = new Bacon.Bus() 
 touchBus = new Bacon.Bus()
+### Private variables for identifying sockets & routing data ###
 ffsocket_id = 0 # socket id for feedback & forwarding
 tsocket_id = 0 # touch socket id
 
@@ -28,18 +29,18 @@ chrome.sockets.udp.onReceive.addListener (info) ->
         console.log "An error occurred: ", error.message
         return
     if info.socketId is tsocket_id
-        touchBus.push result
+        touchBus.push osc2json result
     else if info.socketId is ffsocket_id
-        feedbackBus.push result
+        feedbackBus.push osc2json result
     return
 
 ### bundles sent to forwardBus are currently sent out of udp asap (need my json2osc first) ###
 forwardBus.onValue (bundle) ->
-    chrome.sockets.udp.send ffsocket_id, bundle.buffer, '127.0.0.1', 56765, (sendInfo) ->
+    chrome.sockets.udp.send ffsocket_id, (json2osc bundle).buffer, '127.0.0.1', 56765, (sendInfo) ->
             if sendInfo.resultCode < 0 then console.log "error sending stuff"
         return
 
-### straight-up json 2 osc: ###
+### json 2 osc: ###
 json2osc = (json, timeTag = osc.timeTag(0)) ->
     result = {
         timeTag : timeTag
@@ -67,3 +68,5 @@ osc2json = (jsosc) ->
         a = p.address.substring 1, p.address.length
         result[a] = getOscData(p.args)
     result
+
+module.exports = {feedbackBus, forwardBus, touchBus}

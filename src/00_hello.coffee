@@ -1,3 +1,5 @@
+forwardBus = require('./sockets.js').forwardBus
+
 ### begin by instantiating paper ###
 paper.install window
 window.onload = () ->
@@ -14,5 +16,5 @@ window.onload = () ->
     tool.onMouseMove = (event) ->
         rect.position = event.point # follow the mouse
         ### send an odot bundle ###
-        forwardBus.push json2osc { position: [rect.position.x, rect.position.y] }
+        forwardBus.push { position: [rect.position.x, rect.position.y] }
     return

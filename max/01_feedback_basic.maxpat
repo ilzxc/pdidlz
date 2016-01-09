@@ -3,13 +3,13 @@
 		"fileversion" : 1,
 		"appversion" : 		{
 			"major" : 7,
-			"minor" : 0,
-			"revision" : 6,
-			"architecture" : "x86",
+			"minor" : 1,
+			"revision" : 0,
+			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 100.0, 251.0, 376.0, 391.0 ],
+		"rect" : [ 100.0, 250.0, 376.0, 391.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -212,7 +212,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 77.0, 348.0, 144.0, 22.0 ],
 					"style" : "",
-					"text" : "udpsend localhost 56766"
+					"text" : "udpsend localhost 49412"
 				}
 
 			}
@@ -341,7 +341,7 @@
 				"type" : "iLaX"
 			}
  ],
-		"embedsnapshot" : 0
+		"autosave" : 0
 	}
 
 }
