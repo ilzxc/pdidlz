@@ -1,0 +1,25 @@
+/// 01 : feedback basic:
+{
+    width: 668
+    height: 420
+    rect :: Rectangle center, 200 {
+        fill: 'blue'
+        stroke: 'orange', 10
+        rotation <- feedback.intensity
+    }
+}
+
+/// 02 : primitive trigger
+{
+    width: 668
+    height: 420
+
+    button :: Circle center, 100 {
+        fill: 'red'
+        stroke: 'green', 10
+        scale <- 200 / (200 + (30 * feedback.intensity * vib)) 
+            where vib <- sin(time * 50)
+        touch -> .type is 'down' -> 'bang' -> forward
+        touch -> .type is 'up' -> 'next' -> forward
+    }
+}
