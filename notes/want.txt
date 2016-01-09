@@ -1,3 +1,20 @@
+/// 00 : hello
+{
+    width: 668
+    height: 420
+    
+    my_circle :: Circle origin, 40 {
+        fill: 'grey'
+        stroke: 'black', 10
+    }
+
+    // anywhere touch places my circle @ touch location
+    touch.point -> my_circle.position
+
+    // forward the touch position:
+    touch -> { position: touch.point } -> forward
+}
+
 /// 01 : feedback basic:
 {
     width: 668
