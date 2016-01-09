@@ -1,10 +1,14 @@
+s = require './sockets.js'
+feedbackBus = s.feedbackBus
+forwardBus = s.forwardBus
+
 ### variables for our drum ###
 num_fiducials = 5
 width = 284 * 2
 height = 160 * 2
 ### feedback defaults to 0 for each drum circle: ###
 feedback = { intensities: [0...num_fiducials].map () -> 0 } 
-feedbackBus.onValue (b) -> feedback = osc2json b # todo: eliminate osc2json call, it's always necessary
+feedbackBus.onValue (b) -> feedback = b 
 
 ### constructor for one drum fiducial ###
 drum = (index, total) ->
@@ -30,10 +34,10 @@ drum = (index, total) ->
         return
     result.onMouseDown = (event) ->
         console.log "mouse down in " + index
-        forwardBus.push json2osc { index: index, command: 'bang' }
+        forwardBus.push { index: index, command: 'bang' }
     result.onMouseUp = (event) ->
         console.log "mouse up in " + index
-        forwardBus.push json2osc { index: index, command: 'next' }
+        forwardBus.push { index: index, command: 'next' }
     return result
 
 ### paper stuff & global controls ###

@@ -1,4 +1,4 @@
-s = require('./sockets.js')
+s = require './sockets.js'
 feedbackBus = s.feedbackBus
 forwardBus = s.forwardBus
 
