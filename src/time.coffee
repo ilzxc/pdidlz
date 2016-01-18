@@ -5,4 +5,4 @@ poll = () ->
     t = new Date().getTime()
     time.push .001 * (t - start) # in seconds
  
-module.exports = { time } 
+module.exports = { time, poll } 

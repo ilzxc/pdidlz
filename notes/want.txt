@@ -1,32 +1,36 @@
-/// 00 : hello
+### 00 : hello ###
 {
+    # declare environment:
     width: 668
     height: 420
     
+    # declare the object(s):
     my_circle :: Circle origin, 40 {
         fill: 'grey'
         stroke: 'black', 10
     }
 
-    // anywhere touch places my circle @ touch location
+    # a touch places my circle @ touch location
     touch.point -> my_circle.position
-
-    // forward the touch position:
+    
+    # forward the touch position:
     touch -> { position: touch.point } -> forward
 }
 
-/// 01 : feedback basic:
+### 01 : feedback basic: ###
 {
     width: 668
     height: 420
     rect :: Rectangle center, 200 {
         fill: 'blue'
         stroke: 'orange', 10
+
+        # objects' parameters may depend on signals:
         rotation <- feedback.intensity
     }
 }
 
-/// 02 : primitive trigger
+### 02 : primitive trigger ###
 {
     width: 668
     height: 420
@@ -34,9 +38,9 @@
     button :: Circle center, 100 {
         fill: 'red'
         stroke: 'green', 10
-        scale <- 200 / (200 + (30 * feedback.intensity * vib)) 
+        scale <- feedback.intensity * vib 
             where vib <- sin(time * 50)
-        touch -> .type is 'down' -> 'bang' -> forward
-        touch -> .type is 'up' -> 'next' -> forward
+        forward <- { command: 'bang' } <- touch.type is 'down'
+        forward <- { command: 'next' } <- touch.type is 'up'
     }
 }

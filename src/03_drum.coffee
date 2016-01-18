@@ -13,7 +13,6 @@ feedbackBus.onValue (b) -> feedback = b
 ### constructor for one drum fiducial ###
 drum = (index, total) ->
     radius = (height * .5) - (160 * (index / total))
-    console.log radius
     result = new Path.Circle new Point(width / 2, height / 2), radius
     result.style = {
         fillColor: 'white'
