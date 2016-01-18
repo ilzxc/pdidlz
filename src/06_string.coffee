@@ -1,6 +1,7 @@
-### string test ###
-
-
+s = require './sockets.js'
+feedbackBus = s.feedbackBus
+feedback = { intensity: 0 }
+feedbackBus.onValue (b) -> feedback = b 
 
 paper.install window
 window.onload = () ->
@@ -10,24 +11,19 @@ window.onload = () ->
         angle: 0
         length: 558 / 3
     }
-    string = new Path()
-    string.strokeColor = 'black'
-    string.strokeWidth = 5
-    string.prev_vib = 0
-    string.segments = [
-        [[10, 160], null, vector.rotate(0)],
-        [[558, 160], vector.rotate(-180), null]
-    ]
-    string.applyMatrix = false
-    console.log string
+    string = new Path {
+        strokeColor: 'black'
+        strokeWidth: 5
+        segments: [
+            [[10, 160], null, vector.rotate(0)],
+            [[558, 160], vector.rotate(-180), null]
+        ]
+        applyMatrix: false
+    }
 
     view.onFrame = (event) ->
         c = string.curves[0]
-        c.handle1 = c.handle1.rotate -string.prev_vib
-        c.handle2 = c.handle2.rotate string.prev_vib
-        vib = 20 * Math.sin(50 * event.time)
-        c.handle1 = c.handle1.rotate vib
-        c.handle2 = c.handle2.rotate -vib
-        string.prev_vib = vib
+        vib = 20 * feedback.intensity * Math.sin(50 * event.time)
+        c.handle1.angle = vib
+        c.handle2.angle = 180 - vib
         string.rotate 1.12
-        console.log string.rotation
