@@ -5,7 +5,7 @@
     height: 420
     
     # declare the object(s):
-    my_circle :: Circle origin, 40 {
+    my_circle :: Circle 40 {
         fill: 'grey'
         stroke: 'black', 10
     }
@@ -40,6 +40,7 @@
         stroke: 'green', 10
         scale <- feedback.intensity * vib 
             where vib <- sin(time * 50)
+
         forward <- { command: 'bang' } <- touch.type is 'down'
         forward <- { command: 'next' } <- touch.type is 'up'
     }
