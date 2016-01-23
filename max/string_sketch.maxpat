@@ -283,7 +283,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 188.0, 63.0, 150.0, 48.0 ],
-					"text" : "/index : 0.,\n/pluck : 10.",
+					"text" : "/index : 0.,\n/pluck : 20.",
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 

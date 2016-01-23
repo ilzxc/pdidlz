@@ -7,14 +7,27 @@ feedbackBus.onValue (result) -> feedback = result # fucking fix this
 
 max = Math.max
 min = Math.min
-mouse_segment = null # global for now
 
-wiggle = (path, time) ->
+wiggle = (obj, frame, touch, rtch) ->
     ### wiggles the way you'd expect a string to wiggle ###
-    vib = 10 * feedback.intensity * Math.sin(111 * time)
-    for c in path.segments
-        c.handleIn.angle = c.angle[0] + vib
-        c.handleOut.angle = c.angle[1] - vib
+    # todo: figure out implicit functions (if possible)
+    # for now, we compute 8 in-between values and hit-test them all
+    path = obj.segment
+    if touch != null
+        times = [7..0].map((i) -> frame.time - (frame.delta * i / 7))
+    else 
+        times = [frame.time]
+
+    # console.log times # debug
+
+    for t in times
+        vib = 10 * feedback.intensity * Math.sin(111 * t)
+        for c in path.segments
+            c.handleIn.angle = c.angle[0] + vib
+            c.handleOut.angle = c.angle[1] - vib
+        if touch != null then rtch.shape.proc touch, obj
+        if rtch.shape.tracking != null then break
+
     return
 
 setupHandles = (segment) ->
@@ -59,6 +72,10 @@ createOffset = (string_segments, touch) ->
     }).removeOnDrag().removeOnUp() # dragging & releasing clears the line
     return offsetLine.length
 
+### THIS IS WHY YOU SHOULD NOT WORK WHILE SLEEPY, KIDS ###
+# TODO:
+#   - move the @shape.proc into its own class (wtf in renderTouch?)
+#   - make renderTouch encapsulate the .removeOnUp() shape and do nothing else
 renderTouch = () ->
     @shape = new Path.Circle new Point(0, 0), 10
     @shape.style = {
@@ -72,23 +89,29 @@ renderTouch = () ->
     }
     @shape.proc = (event, obj) ->
         if event.type == 'mousedown'
-            if obj.segment.hitTest event.point
+            if obj.segment.hitTest event.point, { stroke: true }
                 obj.segment.onMouseDrag event
                 @tracking.object = obj
             @position = event.point
             @visible = true
         if event.type == 'mousedrag'
             if @tracking.object == null
-                intersects = obj.segment.getIntersections mouse_segment
+                intersects = obj.segment.getIntersections this
                 if intersects.length != 0
                     obj.segment.onMouseDrag event
                     @tracking.object = obj
+                else
+                    intersects = obj.segment.getIntersections new Path event.lastPoint, event.point
+                    if intersects.length != 0
+                        obj.segment.onMouseDrag event
+                        @tracking.object = obj
             else 
                 @tracking.object.segment.onMouseDrag event
                 @tracking.offset = createOffset obj.segment.segments, event.point
 
             @position = event.point
         if event.type == 'mouseup'
+            @last = null
             if @tracking.object != null
                 forwardBus.push { 
                     index: 0
@@ -97,6 +120,7 @@ renderTouch = () ->
                 @tracking.object.segment.onMouseLeave event
                 @tracking.object = null
             @visible = false
+        return event
     return this
 
 
@@ -138,19 +162,19 @@ window.onload = () ->
 
     rt = new renderTouch()
     touch = new Tool()
+    lev = null
     touch.onMouseDown = (event) -> 
-        mouse_segment.segments[0].point = mouse_segment.segments[1].point = event.point
+        lev = rt.shape.proc event, string
+    touch.onMouseUp = (event) -> 
         rt.shape.proc event, string
-    touch.onMouseUp = (event) -> rt.shape.proc event, string
+        lev = null
     touch.onMouseDrag = (event) -> 
-        rt.shape.proc event, string
-        mouse_segment.segments[1].point = mouse_segment.segments[0].point
-        mouse_segment.segments[0].point = event.point
+        lev = rt.shape.proc event, string
 
     view.onFrame = (event) ->
         # need to ensure that the string is not currently being touched:
         if string.segment.segments.length == 2 # this means wiggle is a go:
-            wiggle string.segment, event.time
+            wiggle string, event, lev, rt
 
     joke = new PointText {
         point: [view.size.width * .5, view.size.height - 5]
