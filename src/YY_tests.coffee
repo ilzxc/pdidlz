@@ -69,7 +69,16 @@ createOffset = (string_segments, touch) ->
         segments: [touch, [touch.x - k * yd, touch.y + k * xd]]
         strokeColor: 'red'
         strokeWidth: 1
+        dashArray: [10, 4]
+        opacity: .1
     }).removeOnDrag().removeOnUp() # dragging & releasing clears the line
+    new Path({
+        segments: [start, end]
+        strokeColor: 'black'
+        strokeWidth: 1
+        dashArray: [10, 4]
+        opacity: .1
+    }).removeOnDrag().removeOnUp()
     return offsetLine.length
 
 ### THIS IS WHY YOU SHOULD NOT WORK WHILE SLEEPY, KIDS ###
@@ -133,6 +142,7 @@ String = (start, end) ->
         segments: [start, end]
         applyMatrix: false
         strokeColor: 'black'
+        strokeJoin: 'bevel'
         strokeWidth: 7
     }
     @segment.onMouseDrag = (event) ->
