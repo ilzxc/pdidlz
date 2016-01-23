@@ -4,6 +4,7 @@ forwardBus = require('./sockets.js').forwardBus
 paper.install window
 window.onload = () ->
     paper.setup 'didlCanvas'
+    
     ### create a new object & describe its style ###   
     rect = new Path.Circle new Point(0, 0), 40
     rect.style = {

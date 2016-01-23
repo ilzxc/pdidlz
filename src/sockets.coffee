@@ -22,7 +22,7 @@ chrome.sockets.udp.create {}, (info) ->
 
 ### stream of feedback & touch bundles ###
 chrome.sockets.udp.onReceive.addListener (info) ->
-    console.log info
+    # console.log info
     try 
         result = osc.readPacket info.data, {}
     catch error

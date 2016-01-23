@@ -1,1 +1,1 @@
-coffee -w -c -b -o build src/*
+fswatch ./src/*.coffee | xargs -n1 ./make.sh
