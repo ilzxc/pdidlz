@@ -1,3 +1,7 @@
+Touch = require './touchDescriptor.js'
+
+touchDescriptor = new Touch.TouchDescriptor()
+
 ### Bacon Busses for sending & receiving data from UDP ###
 feedbackBus = new Bacon.Bus()
 forwardBus = new Bacon.Bus() 
@@ -29,7 +33,7 @@ chrome.sockets.udp.onReceive.addListener (info) ->
         console.log "An error occurred: ", error.message
         return
     if info.socketId is tsocket_id
-        touchBus.push osc2json result
+        touchBus.push touch2json result
     else if info.socketId is ffsocket_id
         feedbackBus.push osc2json result
     return
@@ -65,8 +69,19 @@ setOscData = (key, value, tt) ->
 osc2json = (jsosc) ->
     result = {}
     for p in jsosc.packets
+        console.log p
         a = p.address.substring 1, p.address.length
         result[a] = getOscData(p.args)
     result
+
+touch2json = (tuio) ->
+    parsed = { timetag: new Date().getTime() }
+    for p in tuio.packets
+        if p.args[0] == 'set'
+            parsed[p.args[1]] = [2...p.args.length].map (i) -> p.args[i]
+        else
+            parsed[p.args[0]] = [1...p.args.length].map (i) -> p.args[i]
+    touchDescriptor.update parsed
+    return touchDescriptor
 
 module.exports = {feedbackBus, forwardBus, touchBus}
