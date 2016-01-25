@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 109.0, 129.0, 346.0, 119.0 ],
+		"rect" : [ 109.0, 129.0, 533.0, 293.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -41,13 +41,13 @@
 					"fontface" : 0,
 					"fontsize" : 12.0,
 					"id" : "obj-5",
-					"linecount" : 8,
+					"linecount" : 4,
 					"maxclass" : "o.display",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 171.0, 62.0, 150.0, 129.0 ],
-					"text" : "/tuio/2Dcur : [\"source\", \"TuioPad@10.98.104.56\"],\n/tuio/2Dcur : \"alive\",\n/tuio/2Dcur : [\"fseq\", 4442]",
+					"patching_rect" : [ 171.0, 62.0, 221.0, 75.0 ],
+					"text" : "/tuio/2Dcur : [\"source\", \"TuioPad@169.254.165.31\"],\n/tuio/2Dcur : \"alive\",\n/tuio/2Dcur : [\"fseq\", 4458]",
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
