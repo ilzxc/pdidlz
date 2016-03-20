@@ -2,8 +2,8 @@ paper.install window
 window.onload = () ->
     paper.setup 'didlCanvas'
 
-    # for debug draw:
-    tb = require('./sockets.js')
+    # for draw:
+    tb = require('./sockets.js').touchBus
 
     # -----------------------------
     Crcl = () ->
@@ -20,7 +20,7 @@ window.onload = () ->
     # -----------------------------
     circles = [0...5].map (i) -> Crcl()
     # -----------------------------
-    tb.touchBus.onValue (event) ->
+    tb.onValue (event) ->
         for i in [0...circles.length]
             circles[i].visible = false
         for item, index in event.alive
@@ -34,8 +34,3 @@ window.onload = () ->
             circles[index].style = { strokeColor: color }
         return
     # -----------------------------
-    view.onFrame = (event) ->
-        # does nothing right now
-        return
-
-

@@ -38,16 +38,70 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"hidden" : 1,
+					"id" : "obj-10",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 19.0, 208.0, 29.5, 22.0 ],
+					"style" : "",
+					"text" : "- 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-9",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 47.0, 89.5, 102.0, 20.0 ],
+					"style" : "",
+					"text" : "(toggle o.display)"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"attr" : "hidden",
+					"hidden" : 1,
+					"id" : "obj-7",
+					"maxclass" : "attrui",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 19.0, 235.0, 150.0, 22.0 ],
+					"style" : ""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-4",
+					"maxclass" : "toggle",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 19.0, 87.5, 24.0, 24.0 ],
+					"style" : ""
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontface" : 0,
 					"fontsize" : 12.0,
+					"hidden" : 1,
 					"id" : "obj-5",
-					"linecount" : 4,
+					"linecount" : 3,
 					"maxclass" : "o.display",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 171.0, 62.0, 221.0, 75.0 ],
-					"text" : "/tuio/2Dcur : [\"source\", \"TuioPad@169.254.165.31\"],\n/tuio/2Dcur : \"alive\",\n/tuio/2Dcur : [\"fseq\", 4458]",
+					"patching_rect" : [ 19.0, 121.0, 501.0, 61.0 ],
+					"text" : "/tuio/2Dcur : [\"source\", \"TuioPad@192.168.2.3\"],\n/tuio/2Dcur : \"alive\",\n/tuio/2Dcur : [\"fseq\", 47538]",
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
@@ -55,11 +109,10 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-3",
-					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 165.0, 22.0, 150.0, 33.0 ],
+					"patching_rect" : [ 19.0, 16.0, 250.0, 20.0 ],
 					"style" : "",
 					"text" : "forward TUIO packets to Chrome application."
 				}
@@ -84,7 +137,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 19.0, 22.0, 142.0, 22.0 ],
+					"patching_rect" : [ 19.0, 38.0, 144.0, 22.0 ],
 					"style" : "",
 					"text" : "udpreceive 49420 cnmat"
 				}
@@ -95,7 +148,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
 					"disabled" : 0,
-					"hidden" : 0,
+					"hidden" : 1,
 					"source" : [ "obj-1", 0 ]
 				}
 
@@ -106,6 +159,33 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-7", 0 ],
+					"disabled" : 0,
+					"hidden" : 1,
+					"source" : [ "obj-10", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-10", 0 ],
+					"disabled" : 0,
+					"hidden" : 1,
+					"source" : [ "obj-4", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"disabled" : 0,
+					"hidden" : 1,
+					"source" : [ "obj-7", 0 ]
 				}
 
 			}

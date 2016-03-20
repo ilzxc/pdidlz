@@ -1,7 +1,5 @@
 
-# Created by https://www.gitignore.io/api/javascript,bower,node,coffeescript,osx,sublimetext
-
-#!! ERROR: javascript is undefined. Use list command to see defined gitignore types !!#
+# Created by https://www.gitignore.io/api/bower,node,coffeescript,sublimetext,osx
 
 ### Bower ###
 bower_components
@@ -36,9 +34,9 @@ coverage
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
-# Dependency directory
-# https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
+# Dependency directories
 node_modules
+jspm_packages
 
 # Optional npm cache directory
 .npm
@@ -49,6 +47,23 @@ node_modules
 
 ### CoffeeScript ###
 *.js
+
+
+### SublimeText ###
+# cache files for sublime text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+
+# workspace files are user-specific
+*.sublime-workspace
+
+# project files should be checked into the repository, unless a significant
+# proportion of contributors will probably not be using SublimeText
+# *.sublime-project
+
+# sftp configuration file
+sftp-config.json
 
 
 ### OSX ###
@@ -76,21 +91,4 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-
-
-### SublimeText ###
-# cache files for sublime text
-*.tmlanguage.cache
-*.tmPreferences.cache
-*.stTheme.cache
-
-# workspace files are user-specific
-*.sublime-workspace
-
-# project files should be checked into the repository, unless a significant
-# proportion of contributors will probably not be using SublimeText
-# *.sublime-project
-
-# sftp configuration file
-sftp-config.json
 

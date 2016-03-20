@@ -1,0 +1,60 @@
+### coffee script version of want.txt
+
+## 00 : hello
+scene = {
+    width: 668
+    heigh: 420
+
+    test: Circle 40 {
+        fill: 'grey'
+        stroke: ['black', 10]
+    }
+
+    touch.onValue (event) -> 
+        test.position = touch.point
+        forward.push { position: touch.point }
+}
+
+## 01 : feedback basic
+scene = {
+    width: 668
+    heigh: 420
+    rect: Rectangle {
+        position: 'center'
+        size: 200
+        fill: blue
+        stroke: ['orange', 10]
+        feedback.onValue: (event) -> rotation = event.intensity
+    }
+}
+
+## 02 : primitive trigger
+scene = {
+    width: 668
+    height: 420
+    button: Circle {
+        position: 'center'
+        stroke: ['green', 10]
+        fill: 'red'
+        
+    }
+}
+
+## THOUGHTS :
+scene = {
+    width: 668
+    height: 420
+    string: {
+        segment: Line {
+            from: [5, height * .5]
+            to: [width - 5, height * .5]
+            stroke: ['grey', 5]
+        }
+        terminators: [circle segment.from, circle segment.to]
+        circle: Circle (position) -> {
+            center: position
+            radius: 5
+            fill: 'black'
+        }
+    }
+}

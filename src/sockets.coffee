@@ -69,7 +69,6 @@ setOscData = (key, value, tt) ->
 osc2json = (jsosc) ->
     result = {}
     for p in jsosc.packets
-        console.log p
         a = p.address.substring 1, p.address.length
         result[a] = getOscData(p.args)
     result

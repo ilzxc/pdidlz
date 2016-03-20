@@ -35,7 +35,7 @@ autoHandles = (seg) ->
 
 stringModel = (start, stop, index) ->
         @start = start
-        @end = end
+        @end = stop
         @index = index
         return this
 
