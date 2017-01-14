@@ -11,16 +11,27 @@
     }
 
     # a touch places my circle @ touch location
-    touch.point -> my_circle.position
+    /my_circle/position = /touch/point
     
     # forward the touch position:
     touch -> { position: touch.point } -> forward
+}
+
+### 00 : hello (an alternative take) ###
+{    
+    my_circle :: Circle 40 {
+        fill: 'grey'
+        stroke: 'black', 10
+        position <- touch.point
+        send <- { position }
+    }
 }
 
 ### 01 : feedback basic: ###
 {
     width: 668
     height: 420
+
     rect :: Rectangle center, 200 {
         fill: 'blue'
         stroke: 'orange', 10
@@ -39,9 +50,67 @@
         fill: 'red'
         stroke: 'green', 10
         scale <- feedback.intensity * vib 
-            where vib <- sin(time * 50)
+        vib <- sin(time * 50)
 
         forward <- { command: 'bang' } <- touch.type is 'down'
         forward <- { command: 'next' } <- touch.type is 'up'
     }
 }
+
+### how to make a particle system in didl?
+{
+    boid : Circle /color {
+        radius: 20
+        fill: /color
+
+        scale <- 10 / time.alive
+        alive <- scale <= 0
+        
+        # velocity gets acceleration and gets added to position
+        position <- add { velocity += acceleration }
+        velocity : [random(-3, 3), random(-3, 3)]
+        acceleration : [random(-2, 2), random(-2, 2)]
+    }
+
+    boids :: boid[] {
+        position: center
+    }
+
+    touch.type is down -> boid [touch.x touch.y 255] -> boids
+    boids.position -> send as /boids
+    boids.color.hue <- add intensity
+}
+
+### what if the particles should have different behaviors associated with them?
+{
+    boid = Circle /color {
+        radius : 20
+        fill : /color
+
+        behavior1 : {
+            scale <- sub time.alive / 10
+            alive <- scale <= 0
+        }
+
+        behavior2 : {
+            fill.saturation <- 10 / time.alive
+            alive <- fill.saturation 
+        }
+
+        if random(0, 1) is 1 use behavior1 else use behavior2
+        
+        position <- add { velocity += acceleration }
+        velocity : [0, 0]
+        acceleration : [random(-2, 2), random(-2, 2)]
+    }
+
+    boids :: boid[] {
+        position: center
+    }
+
+    touch.type is down -> boid [touch.x touch.y 255] -> boids
+    boids.position -> send as /boids
+    boids.color.hue <- add intensity
+}
+
+
